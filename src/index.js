@@ -11,7 +11,7 @@ console.log("store", store);
 console.log("State", store.getState());
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App store={store} />
   </React.StrictMode>,
   document.getElementById("root")
 );
