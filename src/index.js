@@ -20,8 +20,15 @@ const logger = ({ dispatch, getState }) => (next) => (action) => {
   console.log("Action TYPE", action.type);
   next(action);
 };
+const thunk = ({ dispatch, getState }) => (next) => (action) => {
+  if (typeof action === "function") {
+    action(dispatch);
+    return;
+  }
+  next(action);
+};
 
-const store = createStore(rootReducer, applyMiddleware(logger)); //{movies: {}, search: {}}
+const store = createStore(rootReducer, applyMiddleware(logger, thunk)); //{movies: {}, search: {}}
 console.log("store", store);
 console.log("State", store.getState());
 ReactDOM.render(
